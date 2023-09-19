@@ -56,6 +56,9 @@ type Options struct {
 	// PDF/A-3b.
 	// Optional.
 	PDFformat string
+
+	// Password file
+	Password string
 }
 
 // API is an abstraction on top of uno.
@@ -350,6 +353,10 @@ func (mod UNO) PDF(ctx context.Context, logger *zap.Logger, inputPath, outputPat
 
 	if options.PageRanges != "" {
 		args = append(args, "--export", fmt.Sprintf("PageRange=%s", options.PageRanges))
+	}
+
+	if options.Password != "" {
+		args = append(args, "--password", options.Password)
 	}
 
 	switch options.PDFformat {

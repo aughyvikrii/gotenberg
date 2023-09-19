@@ -29,6 +29,7 @@ func convertRoute(unoAPI uno.API, engine gotenberg.PDFEngine) api.Route {
 				nativePDFA1aFormat bool
 				nativePDFformat    string
 				PDFformat          string
+				password           string
 				merge              bool
 			)
 
@@ -39,6 +40,7 @@ func convertRoute(unoAPI uno.API, engine gotenberg.PDFEngine) api.Route {
 				Bool("nativePdfA1aFormat", &nativePDFA1aFormat, false).
 				String("nativePdfFormat", &nativePDFformat, "").
 				String("pdfFormat", &PDFformat, "").
+				String("password", &password, "").
 				Bool("merge", &merge, false).
 				Validate()
 
@@ -86,6 +88,7 @@ func convertRoute(unoAPI uno.API, engine gotenberg.PDFEngine) api.Route {
 					Landscape:  landscape,
 					PageRanges: nativePageRanges,
 					PDFformat:  nativePDFformat,
+					Password:   password,
 				}
 
 				err = unoAPI.PDF(ctx, ctx.Log(), inputPath, outputPaths[i], options)
